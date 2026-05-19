@@ -1,0 +1,30 @@
+{
+  "topbar": {
+    "title": "Dashboard",
+    "adminFallback": "Admin",
+    "logout": "Logout",
+    "switchToArabic": "العربية",
+    "switchToEnglish": "English"
+  },
+  "sidebar": {
+    "subtitle": "Admin dashboard",
+    "dashboard": "Dashboard",
+    "developers": "Developers",
+    "projects": "Projects",
+    "units": "Units",
+    "countries": "Countries",
+    "cities": "Cities",
+    "areas": "Areas",
+    "categories": "Categories",
+    "unitTypes": "Unit types",
+    "amenities": "Amenities",
+    "facilities": "Facilities",
+    "banners": "Banners",
+    "onboarding": "Onboarding",
+    "pages": "Static pages",
+    "inquiries": "Inquiries",
+    "notifications": "Notifications",
+    "users": "Users",
+    "settings": "Settings"
+  }
+}

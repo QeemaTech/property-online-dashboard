@@ -1,0 +1,69 @@
+{
+  "actions": {
+    "addNew": "إضافة جديد",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "delete": "حذف",
+    "deleting": "جاري الحذف...",
+    "edit": "تعديل",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "search": "بحث",
+    "update": "تحديث",
+    "upload": "رفع",
+    "viewDetails": "عرض التفاصيل"
+  },
+  "booleans": {
+    "yes": "نعم",
+    "no": "لا",
+    "enabled": "مفعلة",
+    "disabled": "غير مفعلة",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "confirmDelete": {
+    "title": "تأكيد الحذف",
+    "message": "هل أنت متأكد من حذف هذا العنصر؟"
+  },
+  "empty": "لا توجد بيانات",
+  "errors": {
+    "generic": "حدث خطأ",
+    "deleteFailed": "حدث خطأ أثناء الحذف",
+    "languageUpdateFailed": "تعذر تحديث تفضيل اللغة."
+  },
+  "forms": {
+    "addTitle": "إضافة {{resource}}",
+    "editTitle": "تعديل {{resource}}",
+    "selectPlaceholder": "اختر..."
+  },
+  "loading": "جاري التحميل...",
+  "messages": {
+    "created": "تم الإنشاء بنجاح",
+    "deleted": "تم الحذف بنجاح",
+    "imageUploadFailed": "فشل رفع الصورة",
+    "imageUploaded": "تم رفع الصورة",
+    "updated": "تم التحديث بنجاح"
+  },
+  "pagination": {
+    "range": "عرض {{from}} - {{to}} من {{total}}"
+  },
+  "table": {
+    "actions": "إجراءات",
+    "id": "المعرف",
+    "searchPlaceholder": "بحث..."
+  },
+  "statuses": {
+    "ACTIVE": "نشط",
+    "ARCHIVED": "مؤرشف",
+    "CLOSED": "مغلق",
+    "COMING_SOON": "قريباً",
+    "CONTACTED": "تم التواصل",
+    "DELETED": "محذوف",
+    "DRAFT": "مسودة",
+    "NEW": "جديد",
+    "QUALIFIED": "مؤهل",
+    "REJECTED": "مرفوض",
+    "SOLD_OUT": "نفذ",
+    "SUSPENDED": "معلق"
+  }
+}

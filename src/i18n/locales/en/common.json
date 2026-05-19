@@ -1,0 +1,69 @@
+{
+  "actions": {
+    "addNew": "Add new",
+    "cancel": "Cancel",
+    "create": "Create",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "edit": "Edit",
+    "save": "Save",
+    "saving": "Saving...",
+    "search": "Search",
+    "update": "Update",
+    "upload": "Upload",
+    "viewDetails": "View details"
+  },
+  "booleans": {
+    "yes": "Yes",
+    "no": "No",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "confirmDelete": {
+    "title": "Confirm delete",
+    "message": "Are you sure you want to delete this item?"
+  },
+  "empty": "No data found",
+  "errors": {
+    "generic": "Something went wrong",
+    "deleteFailed": "Something went wrong while deleting",
+    "languageUpdateFailed": "Could not update language preference."
+  },
+  "forms": {
+    "addTitle": "Add {{resource}}",
+    "editTitle": "Edit {{resource}}",
+    "selectPlaceholder": "Select..."
+  },
+  "loading": "Loading...",
+  "messages": {
+    "created": "Created successfully",
+    "deleted": "Deleted successfully",
+    "imageUploadFailed": "Image upload failed",
+    "imageUploaded": "Image uploaded",
+    "updated": "Updated successfully"
+  },
+  "pagination": {
+    "range": "Showing {{from}} - {{to}} of {{total}}"
+  },
+  "table": {
+    "actions": "Actions",
+    "id": "ID",
+    "searchPlaceholder": "Search..."
+  },
+  "statuses": {
+    "ACTIVE": "Active",
+    "ARCHIVED": "Archived",
+    "CLOSED": "Closed",
+    "COMING_SOON": "Coming soon",
+    "CONTACTED": "Contacted",
+    "DELETED": "Deleted",
+    "DRAFT": "Draft",
+    "NEW": "New",
+    "QUALIFIED": "Qualified",
+    "REJECTED": "Rejected",
+    "SOLD_OUT": "Sold out",
+    "SUSPENDED": "Suspended"
+  }
+}

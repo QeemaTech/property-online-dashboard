@@ -1,0 +1,30 @@
+{
+  "topbar": {
+    "title": "لوحة التحكم",
+    "adminFallback": "المدير",
+    "logout": "خروج",
+    "switchToArabic": "العربية",
+    "switchToEnglish": "English"
+  },
+  "sidebar": {
+    "subtitle": "لوحة تحكم المدير",
+    "dashboard": "لوحة التحكم",
+    "developers": "المطورون",
+    "projects": "المشاريع",
+    "units": "الوحدات",
+    "countries": "الدول",
+    "cities": "المدن",
+    "areas": "المناطق",
+    "categories": "التصنيفات",
+    "unitTypes": "أنواع الوحدات",
+    "amenities": "وسائل الراحة",
+    "facilities": "المرافق",
+    "banners": "البنرات",
+    "onboarding": "شاشات الترحيب",
+    "pages": "الصفحات الثابتة",
+    "inquiries": "الاستفسارات",
+    "notifications": "الإشعارات",
+    "users": "المستخدمون",
+    "settings": "الإعدادات"
+  }
+}
