@@ -18,6 +18,16 @@ npm run dev
 
 Dashboard runs at: http://localhost:5173
 
+## API Base URL
+
+Development uses the local backend from [.env](C:/Users/Lenovo/Desktop/Qeema%20Tech/temp/property-online/property-online-dashboard/.env:1).
+
+Production builds use:
+
+```bash
+VITE_API_URL=https://property.nodeteam.site/api/v1
+```
+
 ## Features
 - Arabic-first RTL interface
 - Dashboard overview with stats
