@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import CrudListPage from '../../components/common/CrudListPage';
-import CrudFormPage from '../../components/common/CrudFormPage';
 import { countriesApi } from '../../api/crud';
 import { TextInput, CheckboxInput } from '../../components/forms/FormField';
 import { ActiveBadge } from '../../components/common/Badge';
@@ -17,23 +15,29 @@ export function CountriesListPage() {
     { key: 'isActive', label: t('resources.fields.isActive'), render: (r) => <ActiveBadge value={r.isActive} /> },
   ];
 
-  return <CrudListPage title={t('resources.resources.countries.plural')} queryKey="countries" apiFn={countriesApi} columns={columns} createPath="/countries/create" createLabel={t('resources.resources.countries.create')} />;
+  return (
+    <CrudListPage
+      title={t('resources.resources.countries.plural')}
+      queryKey="countries"
+      apiFn={countriesApi}
+      columns={columns}
+      initialFormData={{ nameAr: '', nameEn: '', code: '', phoneCode: '', isActive: true, sortOrder: 0 }}
+      formFields={(form, setForm) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TextInput label={t('resources.fields.nameAr')} value={form.nameAr} onChange={(e) => setForm({ ...form, nameAr: e.target.value })} required />
+            <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={(e) => setForm({ ...form, nameEn: e.target.value })} required />
+            <TextInput label={t('resources.fields.code')} value={form.code} onChange={(e) => setForm({ ...form, code: e.target.value })} required />
+            <TextInput label={t('resources.fields.phoneCode')} value={form.phoneCode} onChange={(e) => setForm({ ...form, phoneCode: e.target.value })} required />
+            <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
+          </div>
+          <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
+        </>
+      )}
+    />
+  );
 }
 
 export function CountryFormPage() {
-  const { t } = useI18n();
-  const [form, setForm] = useState({ nameAr: '', nameEn: '', code: '', phoneCode: '', isActive: true, sortOrder: 0 });
-  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
-  return (
-    <CrudFormPage title={t('resources.resources.countries.singular')} queryKey="countries" apiFn={countriesApi} formData={form} setFormData={setForm} backPath="/countries">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <TextInput label={t('resources.fields.nameAr')} value={form.nameAr} onChange={set('nameAr')} required />
-        <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={set('nameEn')} required />
-        <TextInput label={t('resources.fields.code')} value={form.code} onChange={set('code')} required />
-        <TextInput label={t('resources.fields.phoneCode')} value={form.phoneCode} onChange={set('phoneCode')} required />
-        <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
-      </div>
-      <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
-    </CrudFormPage>
-  );
+  return null;
 }

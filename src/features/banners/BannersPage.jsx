@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import CrudListPage from '../../components/common/CrudListPage';
-import CrudFormPage from '../../components/common/CrudFormPage';
 import { bannersApi } from '../../api/crud';
 import { TextInput, CheckboxInput } from '../../components/forms/FormField';
 import ImageUpload from '../../components/media/ImageUpload';
@@ -17,24 +15,31 @@ export function BannersListPage() {
     { key: 'sortOrder', label: t('resources.fields.sortOrder') },
   ];
 
-  return <CrudListPage title={t('resources.resources.banners.plural')} queryKey="banners" apiFn={bannersApi} columns={columns} createPath="/banners/create" createLabel={t('resources.resources.banners.create')} />;
+  return (
+    <CrudListPage
+      title={t('resources.resources.banners.plural')}
+      queryKey="banners"
+      apiFn={bannersApi}
+      columns={columns}
+      initialFormData={{ titleAr: '', titleEn: '', imageUrl: '', linkType: '', linkValue: '', isActive: true, sortOrder: 0 }}
+      transformSubmit={(d) => ({ ...d, sortOrder: parseInt(d.sortOrder) || 0 })}
+      formFields={(form, setForm) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TextInput label={t('resources.fields.titleAr')} value={form.titleAr || ''} onChange={(e) => setForm({ ...form, titleAr: e.target.value })} />
+            <TextInput label={t('resources.fields.titleEn')} value={form.titleEn || ''} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} />
+            <TextInput label={t('resources.fields.linkType')} value={form.linkType || ''} onChange={(e) => setForm({ ...form, linkType: e.target.value })} />
+            <TextInput label={t('resources.fields.linkValue')} value={form.linkValue || ''} onChange={(e) => setForm({ ...form, linkValue: e.target.value })} />
+            <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
+          </div>
+          <ImageUpload label={t('resources.fields.imageUrl')} value={form.imageUrl || ''} onChange={(v) => setForm({ ...form, imageUrl: v })} />
+          <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
+        </>
+      )}
+    />
+  );
 }
 
 export function BannerFormPage() {
-  const { t } = useI18n();
-  const [form, setForm] = useState({ titleAr: '', titleEn: '', imageUrl: '', linkType: '', linkValue: '', isActive: true, sortOrder: 0 });
-  const set = (k) => (e) => setForm({ ...form, [k]: e?.target ? e.target.value : e });
-  return (
-    <CrudFormPage title={t('resources.resources.banners.singular')} queryKey="banners" apiFn={bannersApi} formData={form} setFormData={setForm} backPath="/banners" transformSubmit={(d) => ({ ...d, sortOrder: parseInt(d.sortOrder) || 0 })}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <TextInput label={t('resources.fields.titleAr')} value={form.titleAr || ''} onChange={set('titleAr')} />
-        <TextInput label={t('resources.fields.titleEn')} value={form.titleEn || ''} onChange={set('titleEn')} />
-        <TextInput label={t('resources.fields.linkType')} value={form.linkType || ''} onChange={set('linkType')} />
-        <TextInput label={t('resources.fields.linkValue')} value={form.linkValue || ''} onChange={set('linkValue')} />
-        <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: e.target.value })} />
-      </div>
-      <ImageUpload label={t('resources.fields.imageUrl')} value={form.imageUrl || ''} onChange={(v) => setForm({ ...form, imageUrl: v })} />
-      <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
-    </CrudFormPage>
-  );
+  return null;
 }

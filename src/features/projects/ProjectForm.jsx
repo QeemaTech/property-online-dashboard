@@ -9,9 +9,10 @@ import Loading from '../../components/common/Loading';
 import SearchableSelect from '../../components/forms/SearchableSelect';
 import { useI18n } from '../../i18n/I18nProvider';
 
-export default function ProjectForm() {
+export default function ProjectForm({ modalId, onSuccess, onCancel }) {
   const { t, localizedField } = useI18n();
-  const { id } = useParams();
+  const { id: paramId } = useParams();
+  const id = modalId ?? paramId;
   const isEdit = !!id;
   const navigate = useNavigate();
   const qc = useQueryClient();
@@ -54,7 +55,12 @@ export default function ProjectForm() {
 
   const mutation = useMutation({
     mutationFn: (data) => isEdit ? projectsApi.update(id, data) : projectsApi.create(data),
-    onSuccess: () => { qc.invalidateQueries(['projects']); toast.success(isEdit ? t('common.messages.updated') : t('common.messages.created')); navigate('/projects'); },
+    onSuccess: () => {
+      qc.invalidateQueries(['projects']);
+      toast.success(isEdit ? t('common.messages.updated') : t('common.messages.created'));
+      if (onSuccess) onSuccess();
+      else navigate('/projects');
+    },
     onError: (err) => toast.error(err.response?.data?.message || t('common.errors.generic')),
   });
 
@@ -83,6 +89,80 @@ export default function ProjectForm() {
     value,
     label: t(`common.statuses.${value}`),
   }));
+
+  if (onSuccess) {
+    return (
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <TextInput label={t('resources.fields.nameAr')} value={form.nameAr} onChange={set('nameAr')} required />
+          <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={set('nameEn')} required />
+          <SearchableSelect
+            label={t('resources.fields.developer')}
+            value={form.developerId}
+            onChange={(v) => setForm({ ...form, developerId: v })}
+            options={toOpts(developers)}
+            placeholder={t('resources.placeholders.selectDeveloper')}
+            searchPlaceholder={t('resources.placeholders.searchDeveloper')}
+            required
+          />
+          <SelectInput label={t('resources.fields.country')} value={form.countryId} onChange={set('countryId')} options={toOpts(countries)} required />
+          <SelectInput label={t('resources.fields.city')} value={form.cityId} onChange={set('cityId')} options={toOpts(cities)} required />
+          <SelectInput label={t('resources.fields.area')} value={form.areaId} onChange={set('areaId')} options={toOpts(allAreas)} />
+          <SelectInput label={t('resources.fields.status')} value={form.status} onChange={set('status')} options={statusOptions} />
+          <TextInput label={t('resources.fields.startingPrice')} type="number" value={form.startingPrice || ''} onChange={set('startingPrice')} />
+          <TextInput label={t('resources.fields.maxPrice')} type="number" value={form.maxPrice || ''} onChange={set('maxPrice')} />
+          <TextInput label={t('resources.fields.downPaymentPercent')} type="number" value={form.downPaymentPercent || ''} onChange={set('downPaymentPercent')} />
+          <TextInput label={t('resources.fields.installmentYears')} type="number" value={form.installmentYears || ''} onChange={set('installmentYears')} />
+          <TextInput label={t('resources.fields.deliveryYear')} value={form.deliveryYear || ''} onChange={set('deliveryYear')} />
+          <TextInput label={t('resources.fields.callPhone')} value={form.callPhone || ''} onChange={set('callPhone')} />
+          <TextInput label={t('resources.fields.whatsappNumber')} value={form.whatsappNumber || ''} onChange={set('whatsappNumber')} />
+        </div>
+        <TextArea label={t('resources.fields.shortDescriptionAr')} value={form.shortDescriptionAr || ''} onChange={set('shortDescriptionAr')} />
+        <TextArea label={t('resources.fields.shortDescriptionEn')} value={form.shortDescriptionEn || ''} onChange={set('shortDescriptionEn')} />
+        <TextArea label={t('resources.fields.descriptionAr')} value={form.descriptionAr || ''} onChange={set('descriptionAr')} />
+        <TextArea label={t('resources.fields.descriptionEn')} value={form.descriptionEn || ''} onChange={set('descriptionEn')} />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <TextInput label={t('resources.fields.addressAr')} value={form.addressAr || ''} onChange={set('addressAr')} />
+          <TextInput label={t('resources.fields.addressEn')} value={form.addressEn || ''} onChange={set('addressEn')} />
+          <TextInput label={t('resources.fields.latitude')} type="number" step="any" value={form.latitude || ''} onChange={set('latitude')} />
+          <TextInput label={t('resources.fields.longitude')} type="number" step="any" value={form.longitude || ''} onChange={set('longitude')} />
+        </div>
+
+        <div className="flex gap-6 my-4">
+          <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} />
+          <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} />
+        </div>
+
+        {amenities?.length > 0 && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('resources.fields.amenities')}</label>
+            <div className="flex flex-wrap gap-2">
+              {amenities.map(a => (
+                <label key={a.id} className="flex items-center gap-1 text-sm bg-gray-50 px-3 py-1.5 rounded-lg cursor-pointer">
+                  <input type="checkbox" checked={form.amenityIds.includes(a.id)} onChange={(e) => {
+                    setForm({ ...form, amenityIds: e.target.checked ? [...form.amenityIds, a.id] : form.amenityIds.filter(x => x !== a.id) });
+                  }} className="w-3.5 h-3.5" />
+                  {localizedField(a)}
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-4 my-4">
+          <CheckboxInput label={t('resources.fields.isFeatured')} checked={form.isFeatured} onChange={setBool('isFeatured')} />
+          <CheckboxInput label={t('resources.fields.isRecommended')} checked={form.isRecommended} onChange={setBool('isRecommended')} />
+          <CheckboxInput label={t('resources.fields.isLatest')} checked={form.isLatest} onChange={setBool('isLatest')} />
+        </div>
+
+        <div className="flex gap-3 mt-6 pt-4 border-t">
+          <SubmitButton loading={mutation.isPending}>{isEdit ? t('common.actions.update') : t('common.actions.create')}</SubmitButton>
+          {onCancel && <button type="button" onClick={onCancel} className="px-6 py-2.5 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">{t('common.actions.cancel')}</button>}
+        </div>
+      </form>
+    );
+  }
 
   return (
     <div>
