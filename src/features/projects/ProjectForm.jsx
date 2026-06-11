@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { projectsApi, developersApi, categoriesApi, countriesApi, citiesApi, areasApi, amenitiesApi, facilitiesApi } from '../../api/crud';
+import { projectsApi, developersApi, countriesApi, citiesApi, areasApi, amenitiesApi, facilitiesApi } from '../../api/crud';
 import { TextInput, TextArea, SelectInput, CheckboxInput, SubmitButton } from '../../components/forms/FormField';
 import ImageUpload from '../../components/media/ImageUpload';
 import Loading from '../../components/common/Loading';
@@ -17,7 +17,7 @@ export default function ProjectForm() {
   const qc = useQueryClient();
 
   const [form, setForm] = useState({
-    nameAr: '', nameEn: '', developerId: '', categoryId: '', countryId: '', cityId: '', areaId: '',
+    nameAr: '', nameEn: '', developerId: '', countryId: '', cityId: '', areaId: '',
     shortDescriptionAr: '', shortDescriptionEn: '', descriptionAr: '', descriptionEn: '',
     addressAr: '', addressEn: '', latitude: '', longitude: '',
     startingPrice: '', maxPrice: '', downPaymentPercent: '', installmentYears: '', deliveryYear: '',
@@ -30,7 +30,6 @@ export default function ProjectForm() {
   const setBool = (key) => (e) => setForm({ ...form, [key]: e.target.checked });
 
   const { data: developers } = useQuery({ queryKey: ['devList'], queryFn: () => developersApi.getAll({ limit: 100 }).then(r => r.data.data) });
-  const { data: categories } = useQuery({ queryKey: ['catList'], queryFn: () => categoriesApi.getAll({ limit: 100 }).then(r => r.data.data) });
   const { data: countries } = useQuery({ queryKey: ['countryList'], queryFn: () => countriesApi.getAll({ limit: 100 }).then(r => r.data.data) });
   const { data: cities } = useQuery({ queryKey: ['cityList', form.countryId], queryFn: () => citiesApi.getAll({ countryId: form.countryId, limit: 100 }).then(r => r.data.data), enabled: !!form.countryId });
   const { data: allAreas } = useQuery({ queryKey: ['areaList', form.cityId], queryFn: () => areasApi.getAll({ cityId: form.cityId, limit: 100 }).then(r => r.data.data), enabled: !!form.cityId });
@@ -44,7 +43,6 @@ export default function ProjectForm() {
       setForm({
         ...existing,
         developerId: existing.developerId?.toString() || '',
-        categoryId: existing.categoryId?.toString() || '',
         countryId: existing.countryId?.toString() || '',
         cityId: existing.cityId?.toString() || '',
         areaId: existing.areaId?.toString() || '',
@@ -65,7 +63,6 @@ export default function ProjectForm() {
     const data = {
       ...form,
       developerId: form.developerId,
-      categoryId: form.categoryId,
       countryId: form.countryId,
       cityId: form.cityId,
       areaId: form.areaId ? form.areaId : null,
@@ -108,7 +105,6 @@ export default function ProjectForm() {
               searchPlaceholder={t('resources.placeholders.searchDeveloper')}
               required
             />
-            <SelectInput label={t('resources.fields.category')} value={form.categoryId} onChange={set('categoryId')} options={toOpts(categories)} required />
             <SelectInput label={t('resources.fields.country')} value={form.countryId} onChange={set('countryId')} options={toOpts(countries)} required />
             <SelectInput label={t('resources.fields.city')} value={form.cityId} onChange={set('cityId')} options={toOpts(cities)} required />
             <SelectInput label={t('resources.fields.area')} value={form.areaId} onChange={set('areaId')} options={toOpts(allAreas)} />

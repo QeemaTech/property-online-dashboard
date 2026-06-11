@@ -11,6 +11,7 @@ export default function UnitsList() {
     { key: 'code', label: t('resources.fields.code') },
     { key: 'project', label: t('resources.fields.project'), render: (r) => localizedField(r.project) || '-' },
     { key: 'unitType', label: t('resources.fields.unitType'), render: (r) => localizedField(r.unitType) || '-' },
+    { key: 'unitCategory', label: t('resources.fields.unitCategory'), render: (r) => (r.unitCategory ? localizedField(r.unitCategory) : '-') },
     { key: 'price', label: t('resources.fields.price'), render: (r) => r.price ? formatCurrency(r.price) : '-' },
     { key: 'bedrooms', label: t('resources.fields.bedrooms') },
     { key: 'builtArea', label: t('resources.fields.builtArea'), render: (r) => r.builtArea ? `${formatNumber(r.builtArea)} m²` : '-' },

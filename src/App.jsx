@@ -68,9 +68,9 @@ function AppRoutes() {
         <Route path="areas/create" element={<AreaFormPage />} />
         <Route path="areas/:id/edit" element={<AreaFormPage />} />
 
-        <Route path="categories" element={<CategoriesListPage />} />
-        <Route path="categories/create" element={<CategoryFormPage />} />
-        <Route path="categories/:id/edit" element={<CategoryFormPage />} />
+        <Route path="unit-categories" element={<CategoriesListPage />} />
+        <Route path="unit-categories/create" element={<CategoryFormPage />} />
+        <Route path="unit-categories/:id/edit" element={<CategoryFormPage />} />
 
         <Route path="unit-types" element={<UnitTypesListPage />} />
         <Route path="unit-types/create" element={<UnitTypeFormPage />} />

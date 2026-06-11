@@ -28,7 +28,7 @@ const menuItems = [
   { path: '/countries', labelKey: 'countries', icon: MapPin },
   { path: '/cities', labelKey: 'cities', icon: Landmark },
   { path: '/areas', labelKey: 'areas', icon: MapPin },
-  { path: '/categories', labelKey: 'categories', icon: Tag },
+  { path: '/unit-categories', labelKey: 'unitCategories', icon: Tag },
   { path: '/unit-types', labelKey: 'unitTypes', icon: Layers },
   { path: '/amenities', labelKey: 'amenities', icon: Sparkles },
   { path: '/facilities', labelKey: 'facilities', icon: Building },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CrudFormPage from '../../components/common/CrudFormPage';
-import { unitsApi, projectsApi } from '../../api/crud';
+import { unitsApi, projectsApi, unitCategoriesApi } from '../../api/crud';
 import { TextInput, TextArea, SelectInput, CheckboxInput } from '../../components/forms/FormField';
 import { useQuery } from '@tanstack/react-query';
 import ImageUpload from '../../components/media/ImageUpload';
@@ -11,7 +11,7 @@ import { useI18n } from '../../i18n/I18nProvider';
 export default function UnitForm() {
   const { t, localizedField } = useI18n();
   const [form, setForm] = useState({
-    projectId: '', unitTypeId: '', nameAr: '', nameEn: '', code: '',
+    projectId: '', unitTypeId: '', unitCategoryId: '', nameAr: '', nameEn: '', code: '',
     bedrooms: '', bathrooms: '', builtArea: '', landArea: '', floorNumber: '',
     price: '', downPaymentPercent: '', installmentYears: '', deliveryDate: '',
     finishingType: '', viewType: '', mainImage: '', isAvailable: true, isFeatured: false,
@@ -24,10 +24,11 @@ export default function UnitForm() {
   const { data: projects } = useQuery({ queryKey: ['projList'], queryFn: () => projectsApi.getAll({ limit: 200 }).then(r => r.data.data) });
 
   const { data: unitTypes } = useQuery({ queryKey: ['utList'], queryFn: () => unitTypesApi.getAll({ limit: 200 }).then(r => r.data.data) });
+  const { data: unitCategories } = useQuery({ queryKey: ['ucList'], queryFn: () => unitCategoriesApi.getAll({ limit: 200 }).then(r => r.data.data) });
 
   const transform = (d) => ({
     ...d,
-    projectId: d.projectId, unitTypeId: d.unitTypeId,
+    projectId: d.projectId, unitTypeId: d.unitTypeId, unitCategoryId: d.unitCategoryId || null,
     bedrooms: d.bedrooms ? parseInt(d.bedrooms) : null, bathrooms: d.bathrooms ? parseInt(d.bathrooms) : null,
     builtArea: d.builtArea ? parseFloat(d.builtArea) : null, landArea: d.landArea ? parseFloat(d.landArea) : null,
     floorNumber: d.floorNumber ? parseInt(d.floorNumber) : null, price: d.price ? parseFloat(d.price) : null,
@@ -43,7 +44,7 @@ export default function UnitForm() {
   }));
 
   return (
-    <CrudFormPage title={t('resources.resources.units.singular')} queryKey="units" apiFn={unitsApi} formData={form} setFormData={(d) => setForm({ ...d, projectId: d.projectId?.toString() || '', unitTypeId: d.unitTypeId?.toString() || '' })} backPath="/units" transformSubmit={transform}>
+    <CrudFormPage title={t('resources.resources.units.singular')} queryKey="units" apiFn={unitsApi} formData={form} setFormData={(d) => setForm({ ...d, projectId: d.projectId?.toString() || '', unitTypeId: d.unitTypeId?.toString() || '', unitCategoryId: d.unitCategoryId?.toString() || '' })} backPath="/units" transformSubmit={transform}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <SearchableSelect
           label={t('resources.fields.project')}
@@ -55,6 +56,7 @@ export default function UnitForm() {
           required
         />
         <SelectInput label={t('resources.fields.unitType')} value={form.unitTypeId} onChange={set('unitTypeId')} options={toOpts(unitTypes)} required />
+        <SelectInput label={t('resources.fields.unitCategory')} value={form.unitCategoryId} onChange={set('unitCategoryId')} options={toOpts(unitCategories)} />
         <TextInput label={t('resources.fields.nameAr')} value={form.nameAr} onChange={set('nameAr')} required />
         <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={set('nameEn')} required />
         <TextInput label={t('resources.fields.code')} value={form.code || ''} onChange={set('code')} />
