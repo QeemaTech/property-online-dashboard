@@ -4,7 +4,12 @@ import { uploadsApi } from '../../api/crud';
 import toast from 'react-hot-toast';
 import { useI18n } from '../../i18n/I18nProvider';
 
-export default function ImageUpload({ value, onChange, label }) {
+function imageSrc(value) {
+  if (!value) return '';
+  return value.startsWith('http') ? value : `/${value}`;
+}
+
+export default function ImageUpload({ value, onChange, label, uploadType = 'default' }) {
   const { t } = useI18n();
   const [uploading, setUploading] = useState(false);
 
@@ -15,13 +20,14 @@ export default function ImageUpload({ value, onChange, label }) {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await uploadsApi.uploadImage(formData);
+      const res = await uploadsApi.uploadImage(formData, uploadType);
       onChange(res.data.data.url);
       toast.success(t('common.messages.imageUploaded'));
-    } catch (err) {
+    } catch {
       toast.error(t('common.messages.imageUploadFailed'));
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -30,7 +36,7 @@ export default function ImageUpload({ value, onChange, label }) {
       <label className="block text-sm font-medium text-gray-700 mb-1">{label || t('resources.fields.image')}</label>
       {value ? (
         <div className="relative inline-block">
-          <img src={value.startsWith('http') ? value : `/${value}`} alt="" className="w-32 h-32 object-cover rounded-lg border" />
+          <img src={imageSrc(value)} alt="" className="w-32 h-32 object-cover rounded-lg border" />
           <button type="button" onClick={() => onChange('')} className="absolute -top-2 -left-2 bg-danger text-white rounded-full p-0.5">
             <X size={14} />
           </button>

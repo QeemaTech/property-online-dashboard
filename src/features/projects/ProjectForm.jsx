@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { projectsApi, developersApi, countriesApi, citiesApi, areasApi, amenitiesApi, facilitiesApi } from '../../api/crud';
 import { TextInput, TextArea, SelectInput, CheckboxInput, SubmitButton } from '../../components/forms/FormField';
 import ImageUpload from '../../components/media/ImageUpload';
+import GalleryUpload from '../../components/media/GalleryUpload';
 import Loading from '../../components/common/Loading';
 import SearchableSelect from '../../components/forms/SearchableSelect';
 import { useI18n } from '../../i18n/I18nProvider';
@@ -130,9 +131,24 @@ export default function ProjectForm({ modalId, onSuccess, onCancel }) {
         </div>
 
         <div className="flex gap-6 my-4">
-          <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} />
-          <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} />
+          <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} uploadType="projects" />
+          <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} uploadType="projects" />
         </div>
+
+        {isEdit && id && (
+          <GalleryUpload
+            entityId={id}
+            galleries={form.galleries || []}
+            onUpload={async (entityId, formData) => {
+              const res = await projectsApi.addGallery(entityId, formData);
+              setForm((prev) => ({ ...prev, galleries: [...(prev.galleries || []), res.data.data] }));
+            }}
+            onRemove={async (galleryId) => {
+              await projectsApi.removeGallery(galleryId);
+              setForm((prev) => ({ ...prev, galleries: (prev.galleries || []).filter((g) => g.id !== galleryId) }));
+            }}
+          />
+        )}
 
         {amenities?.length > 0 && (
           <div className="mb-4">
@@ -210,9 +226,24 @@ export default function ProjectForm({ modalId, onSuccess, onCancel }) {
           </div>
 
           <div className="flex gap-6 my-4">
-            <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} />
-            <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} />
+            <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} uploadType="projects" />
+            <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} uploadType="projects" />
           </div>
+
+          {isEdit && id && (
+            <GalleryUpload
+              entityId={id}
+              galleries={form.galleries || []}
+              onUpload={async (entityId, formData) => {
+                const res = await projectsApi.addGallery(entityId, formData);
+                setForm((prev) => ({ ...prev, galleries: [...(prev.galleries || []), res.data.data] }));
+              }}
+              onRemove={async (galleryId) => {
+                await projectsApi.removeGallery(galleryId);
+                setForm((prev) => ({ ...prev, galleries: (prev.galleries || []).filter((g) => g.id !== galleryId) }));
+              }}
+            />
+          )}
 
           {amenities?.length > 0 && (
             <div className="mb-4">

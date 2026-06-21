@@ -1,6 +1,7 @@
 import CrudListPage from '../../components/common/CrudListPage';
 import { unitCategoriesApi } from '../../api/crud';
-import { TextInput, CheckboxInput } from '../../components/forms/FormField';
+import { TextInput, TextArea, CheckboxInput } from '../../components/forms/FormField';
+import ImageUpload from '../../components/media/ImageUpload';
 import { ActiveBadge } from '../../components/common/Badge';
 import { useI18n } from '../../i18n/I18nProvider';
 
@@ -20,7 +21,7 @@ export function CategoriesListPage() {
       queryKey="unitCategories"
       apiFn={unitCategoriesApi}
       columns={columns}
-      initialFormData={{ nameAr: '', nameEn: '', isActive: true, sortOrder: 0 }}
+      initialFormData={{ nameAr: '', nameEn: '', image: '', descriptionAr: '', descriptionEn: '', isActive: true, sortOrder: 0 }}
       transformSubmit={(d) => ({ ...d, sortOrder: parseInt(d.sortOrder) || 0 })}
       formFields={(form, setForm) => (
         <>
@@ -29,6 +30,9 @@ export function CategoriesListPage() {
             <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={(e) => setForm({ ...form, nameEn: e.target.value })} required />
             <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
           </div>
+          <ImageUpload label={t('resources.fields.image')} value={form.image || ''} onChange={(v) => setForm({ ...form, image: v })} uploadType="unit-categories" />
+          <TextArea label={t('resources.fields.descriptionAr')} value={form.descriptionAr || ''} onChange={(e) => setForm({ ...form, descriptionAr: e.target.value })} />
+          <TextArea label={t('resources.fields.descriptionEn')} value={form.descriptionEn || ''} onChange={(e) => setForm({ ...form, descriptionEn: e.target.value })} />
           <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
         </>
       )}

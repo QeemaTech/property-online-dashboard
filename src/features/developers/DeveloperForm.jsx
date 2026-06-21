@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CrudFormPage from '../../components/common/CrudFormPage';
 import { developersApi } from '../../api/crud';
 import { TextInput, TextArea, CheckboxInput } from '../../components/forms/FormField';
 import ImageUpload from '../../components/media/ImageUpload';
+import GalleryUpload from '../../components/media/GalleryUpload';
 import { useI18n } from '../../i18n/I18nProvider';
 
 const initial = { nameAr: '', nameEn: '', shortDescriptionAr: '', shortDescriptionEn: '', fullDescriptionAr: '', fullDescriptionEn: '', phone: '', whatsapp: '', website: '', email: '', yearsOfExperience: '', numberOfProjects: '', logo: '', coverImage: '', isFeatured: false, isActive: true };
 
 export default function DeveloperForm() {
   const { t } = useI18n();
+  const { id } = useParams();
   const [form, setForm] = useState(initial);
   const set = (key) => (e) => setForm({ ...form, [key]: e?.target ? e.target.value : e });
   const setBool = (key) => (e) => setForm({ ...form, [key]: e.target.checked });
@@ -36,9 +39,23 @@ export default function DeveloperForm() {
       <TextArea label={t('resources.fields.fullDescriptionAr')} value={form.fullDescriptionAr || ''} onChange={set('fullDescriptionAr')} />
       <TextArea label={t('resources.fields.fullDescriptionEn')} value={form.fullDescriptionEn || ''} onChange={set('fullDescriptionEn')} />
       <div className="flex gap-6">
-        <ImageUpload label={t('resources.fields.logo')} value={form.logo || ''} onChange={(v) => setForm({ ...form, logo: v })} />
-        <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} />
+        <ImageUpload label={t('resources.fields.logo')} value={form.logo || ''} onChange={(v) => setForm({ ...form, logo: v })} uploadType="developers" />
+        <ImageUpload label={t('resources.fields.coverImage')} value={form.coverImage || ''} onChange={(v) => setForm({ ...form, coverImage: v })} uploadType="developers" />
       </div>
+      {id && (
+        <GalleryUpload
+          entityId={id}
+          galleries={form.galleries || []}
+          onUpload={async (entityId, formData) => {
+            const res = await developersApi.addGallery(entityId, formData);
+            setForm((prev) => ({ ...prev, galleries: [...(prev.galleries || []), res.data.data] }));
+          }}
+          onRemove={async (galleryId) => {
+            await developersApi.removeGallery(galleryId);
+            setForm((prev) => ({ ...prev, galleries: (prev.galleries || []).filter((g) => g.id !== galleryId) }));
+          }}
+        />
+      )}
       <CheckboxInput label={t('resources.fields.isFeatured')} checked={form.isFeatured} onChange={setBool('isFeatured')} />
       <CheckboxInput label={t('common.booleans.active')} checked={form.isActive} onChange={setBool('isActive')} />
     </CrudFormPage>

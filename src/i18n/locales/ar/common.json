@@ -42,6 +42,7 @@
     "deleted": "تم الحذف بنجاح",
     "imageUploadFailed": "فشل رفع الصورة",
     "imageUploaded": "تم رفع الصورة",
+    "saveBeforeGallery": "احفظ السجل أولاً لرفع صور المعرض",
     "updated": "تم التحديث بنجاح"
   },
   "pagination": {

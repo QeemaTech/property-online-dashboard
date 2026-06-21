@@ -60,7 +60,7 @@ export default function UnitsList() {
           </div>
           <TextArea label={t('resources.fields.descriptionAr')} value={form.descriptionAr || ''} onChange={(e) => setForm({ ...form, descriptionAr: e.target.value })} />
           <TextArea label={t('resources.fields.descriptionEn')} value={form.descriptionEn || ''} onChange={(e) => setForm({ ...form, descriptionEn: e.target.value })} />
-          <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} />
+          <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} uploadType="units" />
           <CheckboxInput label={t('resources.fields.isAvailable')} checked={form.isAvailable} onChange={(e) => setForm({ ...form, isAvailable: e.target.checked })} />
           <CheckboxInput label={t('resources.fields.isFeatured')} checked={form.isFeatured} onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })} />
         </>

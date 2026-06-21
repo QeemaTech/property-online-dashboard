@@ -42,6 +42,7 @@
     "deleted": "Deleted successfully",
     "imageUploadFailed": "Image upload failed",
     "imageUploaded": "Image uploaded",
+    "saveBeforeGallery": "Save the record first to upload gallery images",
     "updated": "Updated successfully"
   },
   "pagination": {

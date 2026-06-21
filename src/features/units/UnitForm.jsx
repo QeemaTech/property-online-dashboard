@@ -72,7 +72,7 @@ export default function UnitForm() {
       </div>
       <TextArea label={t('resources.fields.descriptionAr')} value={form.descriptionAr || ''} onChange={set('descriptionAr')} />
       <TextArea label={t('resources.fields.descriptionEn')} value={form.descriptionEn || ''} onChange={set('descriptionEn')} />
-      <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} />
+      <ImageUpload label={t('resources.fields.mainImage')} value={form.mainImage || ''} onChange={(v) => setForm({ ...form, mainImage: v })} uploadType="units" />
       <CheckboxInput label={t('resources.fields.isAvailable')} checked={form.isAvailable} onChange={setBool('isAvailable')} />
       <CheckboxInput label={t('resources.fields.isFeatured')} checked={form.isFeatured} onChange={setBool('isFeatured')} />
     </CrudFormPage>
