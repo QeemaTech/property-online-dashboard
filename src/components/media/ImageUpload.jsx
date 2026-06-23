@@ -21,7 +21,8 @@ export default function ImageUpload({ value, onChange, label, uploadType = 'defa
       const formData = new FormData();
       formData.append('file', file);
       const res = await uploadsApi.uploadImage(formData, uploadType);
-      onChange(res.data.data.url);
+      const uploaded = res.data?.data;
+      onChange(uploaded?.url || uploaded?.fullUrl || '');
       toast.success(t('common.messages.imageUploaded'));
     } catch {
       toast.error(t('common.messages.imageUploadFailed'));

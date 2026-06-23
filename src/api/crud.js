@@ -15,9 +15,7 @@ function withGalleryApi(basePath, galleryPath) {
   const crud = createCrudApi(basePath);
   return {
     ...crud,
-    addGallery: (id, formData) => api.post(`${basePath}/${id}/galleries`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }),
+    addGallery: (id, formData) => api.post(`${basePath}/${id}/galleries`, formData),
     removeGallery: (galleryId) => api.delete(`${galleryPath}/galleries/${galleryId}`),
   };
 }
@@ -56,9 +54,10 @@ const UPLOAD_IMAGE_ENDPOINTS = {
 };
 
 export const uploadsApi = {
-  uploadImage: (formData, type = 'default') => api.post(UPLOAD_IMAGE_ENDPOINTS[type] || UPLOAD_IMAGE_ENDPOINTS.default, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }),
-  uploadImages: (formData) => api.post('/admin/uploads/images', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  uploadFile: (formData) => api.post('/admin/uploads/file', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  uploadImage: (formData, type = 'default') => api.post(
+    UPLOAD_IMAGE_ENDPOINTS[type] || UPLOAD_IMAGE_ENDPOINTS.default,
+    formData,
+  ),
+  uploadImages: (formData) => api.post('/admin/uploads/images', formData),
+  uploadFile: (formData) => api.post('/admin/uploads/file', formData),
 };
