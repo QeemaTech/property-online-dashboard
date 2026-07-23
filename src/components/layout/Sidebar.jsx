@@ -17,6 +17,7 @@ import {
   Sparkles,
   Tag,
   Users,
+  MonitorSmartphone,
 } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nProvider';
 
@@ -34,6 +35,7 @@ const menuItems = [
   { path: '/facilities', labelKey: 'facilities', icon: Building },
   { path: '/banners', labelKey: 'banners', icon: Image },
   { path: '/onboarding', labelKey: 'onboarding', icon: SlidersHorizontal },
+  { path: '/app-screens', labelKey: 'appScreens', icon: MonitorSmartphone },
   { path: '/pages', labelKey: 'pages', icon: FileText },
   { path: '/inquiries', labelKey: 'inquiries', icon: MessageSquare },
   { path: '/notifications', labelKey: 'notifications', icon: Bell },
