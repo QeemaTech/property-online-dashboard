@@ -19,6 +19,7 @@
     "users": { "plural": "Users", "singular": "user" }
   },
   "fields": {
+    "backgroundImageUrl": "Background image",
     "addressAr": "Address (Arabic)",
     "addressEn": "Address (English)",
     "amenities": "Amenities",

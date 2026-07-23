@@ -19,6 +19,7 @@
     "users": { "plural": "المستخدمون", "singular": "مستخدم" }
   },
   "fields": {
+    "backgroundImageUrl": "صورة الخلفية",
     "addressAr": "العنوان (عربي)",
     "addressEn": "العنوان (إنجليزي)",
     "amenities": "المرافق",
