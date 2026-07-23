@@ -18,6 +18,7 @@ import {
   Tag,
   Users,
   MonitorSmartphone,
+  BadgePercent,
 } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nProvider';
 
@@ -34,6 +35,7 @@ const menuItems = [
   { path: '/amenities', labelKey: 'amenities', icon: Sparkles },
   { path: '/facilities', labelKey: 'facilities', icon: Building },
   { path: '/banners', labelKey: 'banners', icon: Image },
+  { path: '/offers', labelKey: 'offers', icon: BadgePercent },
   { path: '/onboarding', labelKey: 'onboarding', icon: SlidersHorizontal },
   { path: '/app-screens', labelKey: 'appScreens', icon: MonitorSmartphone },
   { path: '/pages', labelKey: 'pages', icon: FileText },

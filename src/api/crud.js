@@ -32,6 +32,7 @@ export const amenitiesApi = createCrudApi('/admin/amenities');
 export const facilitiesApi = createCrudApi('/admin/facilities');
 export const paymentPlansApi = createCrudApi('/admin/payment-plans');
 export const bannersApi = createCrudApi('/admin/banners');
+export const offersApi = createCrudApi('/admin/offers');
 export const onboardingApi = createCrudApi('/admin/onboarding');
 export const appScreensApi = createCrudApi('/admin/app-screens');
 export const staticPagesApi = createCrudApi('/admin/pages');
@@ -53,6 +54,7 @@ const UPLOAD_IMAGE_ENDPOINTS = {
   'unit-categories': '/admin/uploads/unit-categories/image',
   units: '/admin/uploads/units/image',
   'app-screens': '/admin/uploads/app-screens/image',
+  offers: '/admin/uploads/offers/image',
 };
 
 export const uploadsApi = {

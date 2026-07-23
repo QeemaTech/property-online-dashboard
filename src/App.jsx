@@ -17,6 +17,7 @@ import { UnitTypesListPage } from './features/unitTypes/UnitTypesPage';
 import { AmenitiesListPage } from './features/amenities/AmenitiesPage';
 import { FacilitiesListPage } from './features/facilities/FacilitiesPage';
 import { BannersListPage } from './features/banners/BannersPage';
+import { OffersListPage } from './features/offers/OffersPage';
 import { OnboardingListPage } from './features/onboarding/OnboardingPage';
 import AppScreensPage from './features/appScreens/AppScreensPage';
 import { StaticPagesListPage } from './features/staticPages/StaticPagesPage';
@@ -53,6 +54,7 @@ function AppRoutes() {
         <Route path="amenities" element={<AmenitiesListPage />} />
         <Route path="facilities" element={<FacilitiesListPage />} />
         <Route path="banners" element={<BannersListPage />} />
+        <Route path="offers" element={<OffersListPage />} />
         <Route path="onboarding" element={<OnboardingListPage />} />
         <Route path="app-screens" element={<AppScreensPage />} />
         <Route path="pages" element={<StaticPagesListPage />} />
