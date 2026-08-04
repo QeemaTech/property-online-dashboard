@@ -166,7 +166,8 @@
     "groups": {
       "general": "General",
       "contact": "Contact",
-      "social": "Social media"
+      "social": "Social media",
+      "page_titles": "Page titles"
     }
   }
 }
