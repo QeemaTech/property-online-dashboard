@@ -22,13 +22,15 @@ export function CitiesListPage() {
       queryKey="cities"
       apiFn={citiesApi}
       columns={columns}
-      initialFormData={{ nameAr: '', nameEn: '', countryId: '', isActive: true, sortOrder: 0 }}
+      initialFormData={{ nameAr: '', nameEn: '', titleAr: '', titleEn: '', countryId: '', isActive: true, sortOrder: 0 }}
       transformSubmit={(d) => ({ ...d, countryId: d.countryId, sortOrder: parseInt(d.sortOrder) || 0 })}
       formFields={(form, setForm) => (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput label={t('resources.fields.nameAr')} value={form.nameAr} onChange={(e) => setForm({ ...form, nameAr: e.target.value })} required />
             <TextInput label={t('resources.fields.nameEn')} value={form.nameEn} onChange={(e) => setForm({ ...form, nameEn: e.target.value })} required />
+            <TextInput label={t('resources.fields.titleAr')} value={form.titleAr} onChange={(e) => setForm({ ...form, titleAr: e.target.value })} />
+            <TextInput label={t('resources.fields.titleEn')} value={form.titleEn} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} />
             <SelectInput label={t('resources.fields.country')} value={form.countryId} onChange={(e) => setForm({ ...form, countryId: e.target.value })} options={(countries || []).map(c => ({ value: c.id.toString(), label: localizedField(c) }))} required />
             <TextInput label={t('resources.fields.sortOrder')} type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
           </div>

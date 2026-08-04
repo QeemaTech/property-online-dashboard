@@ -74,6 +74,8 @@
     "message": "Message",
     "nameAr": "Name (Arabic)",
     "nameEn": "Name (English)",
+    "titleAr": "Title (Arabic)",
+    "titleEn": "Title (English)",
     "notes": "Internal notes",
     "notifications": "Notifications",
     "phone": "Phone",
